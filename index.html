@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blurry Loading Animation</title>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="loadText">0%</div>
+</body>
+<script>
+    const loadText=document.querySelector('.loadText');
+    const bg=document.querySelector('.bg');
+
+    let load=0;
+    let int=setInterval(blurring, 30);
+
+    function blurring(){
+        load++;
+        if(load>99){
+            clearInterval(int);
+       }
+       loadText.innerHTML=load+'%';
+
+       loadText.style.opacity=scale(load, 0, 100, 1, 0);
+       bg.style.filter=`blur(${scale(load, 0, 100, 30, 0)}px)`;
+    }
+    
+    const scale=(num, in_min, in_max, out_min, out_max)=>{
+        return(num-in_min)*(out_max-out_min)/(in_max-in_min)+out_min;
+    }
+</script>
+</html>
